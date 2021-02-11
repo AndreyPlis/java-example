@@ -12,6 +12,6 @@ public class Main {
 
         dash2.start();
 
-        dash2.stop();
+        dash2.stop();/////////тест
     }
 }
