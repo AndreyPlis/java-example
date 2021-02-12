@@ -1,30 +1,21 @@
 package component;
 
-public abstract class DashboardComponent {
+public interface DashboardComponent extends Cloneable, Comparable<DashboardComponent> {
 
-    private int x;
-    private int y;
+    int getX();
 
-    public DashboardComponent(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+    void setX(int x);
 
-    public int getX() {
-        return x;
-    }
+    int getY();
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    void setY(int y);
 
-    public int getY() {
-        return y;
-    }
+    int getSize();
 
-    public void setY(int y) {
-        this.y = y;
-    }
+    void setSize(int size);
 
-    public abstract String render();
+    String render();
+
+    void changeXY();
+
 }
