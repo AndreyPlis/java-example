@@ -1,30 +1,25 @@
 package component;
 
-public abstract class DashboardComponent {
-
-    private int x;
-    private int y;
-
-    public DashboardComponent(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
+public interface DashboardComponent extends Comparable<DashboardComponent> {
 
     public abstract String render();
+
+    public abstract void rename(String name);
+
+    public abstract void show();
+
+    public abstract void hide();
+
+    public abstract int getIdComponent();
+
+    public abstract String getClassName();
+
+    public abstract int getX();
+
+    public abstract int getY();
+
+    public abstract String getName();
+
+    public abstract boolean getVisible();
+
 }

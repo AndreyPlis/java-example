@@ -16,4 +16,11 @@ public interface Dashboard extends Cloneable {
 
     void removeComponent(DashboardComponent component);
 
+    void sort();
+
+    void setName(String name);
+
+    void setIdDashboard(int idDashboard);
+
+    String getClassName();
 }
