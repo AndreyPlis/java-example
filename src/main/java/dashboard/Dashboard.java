@@ -16,4 +16,5 @@ public interface Dashboard extends Cloneable {
 
     void removeComponent(DashboardComponent component);
 
+    void sort();
 }

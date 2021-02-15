@@ -1,8 +1,12 @@
 package component;
 
-public class ImageComponent extends DashboardComponent {
-    public ImageComponent(int x, int y) {
-        super(x, y);
+public class ImageComponent extends AbstractDashboardComponent {
+    public ImageComponent(int x, int y, int id) {
+        super(x, y, id);
+    }
+
+    public ImageComponent(int x, int y, int id, boolean visible) {
+        super(x, y, id, visible);
     }
 
     @Override
