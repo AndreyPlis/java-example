@@ -1,12 +1,19 @@
 package dashboard;
 
 import component.*;
+import validator.*;
+
+import java.util.*;
 
 public class DashboardBuilder {
 
     private String name;
 
     private boolean editable = false;
+
+    private List<DashboardComponent> components = new ArrayList<>();
+
+    private List<Validator> validators = new ArrayList<>();
 
 
     public DashboardBuilder name(String name) {
@@ -25,8 +32,18 @@ public class DashboardBuilder {
         return this;
     }
 
-    public DashboardBuilder addLabel(int x, int y) {
-        ComponentsFactory.create(ComponentsFactory.Type.LABEL, x, y);
+    public DashboardBuilder addLabel(int x, int y,int width, int height) {
+        components.add(ComponentsFactory.create(ComponentsFactory.Type.LABEL, x, y));
+        return this;
+    }
+
+    public DashboardBuilder addImage(int x, int y, int width, int height) {
+        components.add(ComponentsFactory.create(ComponentsFactory.Type.IMAGE, x, y));
+        return this;
+    }
+
+    public DashboardBuilder addValidator(Validator validator) {
+        validators.add(validator);
         return this;
     }
 
@@ -39,6 +56,12 @@ public class DashboardBuilder {
             dash = new RunnableDashboard();
 
         dash.setName(name);
+        for (DashboardComponent component : components)
+            dash.addComponent(component);
+
+        for (Validator validator : validators)
+            dash.addValidator(validator);
+
         return dash;
     }
 

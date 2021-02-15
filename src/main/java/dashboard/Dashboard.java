@@ -1,12 +1,15 @@
 package dashboard;
 
 import component.*;
+import validator.Validator;
+
+
 
 public interface Dashboard extends Cloneable {
 
     void redirect(String dashboardUrl);
 
-    int search(DashboardComponent component, String search);
+    void search(String search);
 
     void start();
 
@@ -16,10 +19,8 @@ public interface Dashboard extends Cloneable {
 
     void removeComponent(DashboardComponent component);
 
-    void changeComponent(DashboardComponent component, DashboardComponent componentChange);
+    void validate() throws DashboardValidationException;
 
-    void sortComponent();
-
-    Object clone();
+    void addValidator(Validator validator);
 
 }

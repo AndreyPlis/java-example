@@ -1,7 +1,10 @@
 package dashboard;
 
 import component.*;
+import validator.*;
+import validator.Validator;
 
+import javax.xml.bind.*;
 import java.util.*;
 
 public abstract class AbstractDashboard extends Object implements Dashboard, Cloneable {
@@ -23,6 +26,17 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
     @Override
     public void search(String search) {
 
+    }
+
+
+    @Override
+    public void validate() throws DashboardValidationException {
+//some code
+    }
+
+    @Override
+    public void addValidator(Validator validator) {
+//some code
     }
 
     protected abstract void render();
