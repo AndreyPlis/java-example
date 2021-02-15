@@ -6,7 +6,7 @@ public interface Dashboard extends Cloneable {
 
     void redirect(String dashboardUrl);
 
-    void search(String search);
+    int search(DashboardComponent component, String search);
 
     void start();
 
@@ -15,5 +15,11 @@ public interface Dashboard extends Cloneable {
     void addComponent(DashboardComponent component);
 
     void removeComponent(DashboardComponent component);
+
+    void changeComponent(DashboardComponent component, DashboardComponent componentChange);
+
+    void sortComponent();
+
+    Object clone();
 
 }
