@@ -1,33 +1,13 @@
 package component;
 
-public class LabelComponent implements DashboardComponent {
-    private String name;
-    private int x, y;
+import java.util.*;
 
-    public LabelComponent(int x, int y, String name) {
-        this.name = name;
-        this.x = x;
-        this.y = y;
-    }
+public class LabelComponent extends DashboardComponent implements Cloneable{
 
-    @Override
-    public int getX() {
-        return x;
-    }
+    String name = null;
 
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.y = y;
+    public LabelComponent(int x, int y) {
+        super(x, y);
     }
 
     @Override
@@ -35,42 +15,22 @@ public class LabelComponent implements DashboardComponent {
         return "label";
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public LabelComponent clone() throws CloneNotSupportedException {
+        return (LabelComponent) super.clone();
     }
 
     @Override
-    public void rename(String changeName) {
-        this.name = changeName;
-    }
-
-    @Override
-    public void replace(int xChange, int yChange) {
-        this.x = xChange;
-        this.y = yChange;
-    }
-
-    @Override
-    public boolean equals(DashboardComponent component) {
-        return super.equals(component);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        LabelComponent that = (LabelComponent) o;
+        return Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equalsHashCode(DashboardComponent component1, DashboardComponent component2) {
-        int result1 = component1.hashCode();
-        int result2 = component2.hashCode();
-        if (result1 == result2) {
-            return true;
-        } else
-            return false;
+        return Objects.hash(super.hashCode(), name);
     }
 }

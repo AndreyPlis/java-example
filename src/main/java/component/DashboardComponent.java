@@ -1,27 +1,47 @@
 package component;
 
-public interface DashboardComponent {
+import java.util.*;
 
-    String getName();
+public abstract class DashboardComponent {
 
-    void setName(String name);
+    private int x;
+    private int y;
 
-    int getX();
+    public DashboardComponent(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-    void setX(int x);
+    public int getX() {
+        return x;
+    }
 
-    int getY();
+    public void setX(int x) {
+        this.x = x;
+    }
 
-    void setY(int y);
+    public int getY() {
+        return y;
+    }
 
-    String render();
+    public void setY(int y) {
+        this.y = y;
+    }
 
-    void rename(String changeName);
+    public abstract String render();
 
-    void replace(int xChange, int yChange);
 
-    boolean equals(DashboardComponent component1);
+    @Override
+    public boolean equals(Object o) {
 
-    boolean equalsHashCode(DashboardComponent component1, DashboardComponent component2);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DashboardComponent that = (DashboardComponent) o;
+        return x == that.x && y == that.y;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }

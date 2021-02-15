@@ -1,32 +1,44 @@
-import component.Builder;
-import component.ImageComponent;
-import component.LabelComponent;
-import dashboard.Dashboard;
+import component.*;
+import dashboard.*;
+
+import java.util.*;
 
 public class Main {
 
     public static void main(String... args) {
-        Builder builder = new Builder();
 
-        Dashboard dashboard1 = builder.buildEditableDashboard();
-        Dashboard dashboard2 = builder.buildRunnableDashboard();
+        Dashboard dash = new RunnableDashboard();
 
-        dashboard1.start();
-        dashboard2.start();
+        AbstractDashboard dash2 = new EditableDashboard();
 
-        ImageComponent timetable = new ImageComponent(4, 10, "Расписание");
-        LabelComponent timetableName = new LabelComponent(6, 11, "Расписание");
-        dashboard1.addComponent(timetable);
-        dashboard1.addComponent(timetableName);
+        dash2.clone();
 
-        ImageComponent graph = new ImageComponent(4, 10, "График");
-        LabelComponent graph1 = new LabelComponent(6, 11, "График №1");
-        dashboard1.addComponent(graph);
-        dashboard1.addComponent(graph1);
+        dash.start();
 
-        dashboard1.clone();
-        dashboard1.sortComponent();
+        dash2.start();
 
-        graph.equals(timetable);
+        dash2.stop();
+
+
+        List<DashboardComponent> components = new ArrayList<>();
+
+
+        DashboardComponent component1 = new LabelComponent(1,1);
+        DashboardComponent component2 = new LabelComponent(2,2);
+        DashboardComponent component3 = new LabelComponent(1,1);
+
+
+        components.add(component1);
+        components.add(component2);
+        //components.add(component3);
+
+
+        DashboardBuilder builder = new DashboardBuilder();
+
+        Dashboard result = builder.name("dash").editable().build();
+
+
+        System.out.println(components.indexOf(component3));
+
     }
 }

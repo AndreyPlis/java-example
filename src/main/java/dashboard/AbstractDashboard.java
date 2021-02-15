@@ -3,29 +3,26 @@ package dashboard;
 import component.*;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.ToDoubleFunction;
-import java.util.function.ToIntFunction;
-import java.util.function.ToLongFunction;
 
-import static java.util.Arrays.*;
-
-public abstract class AbstractDashboard implements Dashboard {
+public abstract class AbstractDashboard extends Object implements Dashboard, Cloneable {
 
     private List<DashboardComponent> components = new ArrayList<>();
 
-    String dashboardUrl = "";
+
+    private String name;
+
+
+    private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
 
 
     @Override
     public void redirect(String dashboardUrl) {
-        this.dashboardUrl = dashboardUrl;
+
     }
 
     @Override
-    public int search(DashboardComponent component, String search) {
-        component.getName().equals(search);
-        return components.indexOf(component);
+    public void search(String search) {
+
     }
 
     protected abstract void render();
@@ -38,7 +35,7 @@ public abstract class AbstractDashboard implements Dashboard {
 
     @Override
     public void stop() {
-        System.out.println("STOP");
+
     }
 
     @Override
@@ -51,37 +48,37 @@ public abstract class AbstractDashboard implements Dashboard {
         components.remove(component);
     }
 
+
     @Override
-    public void changeComponent(DashboardComponent component, DashboardComponent componentChange) {
-        int index = components.indexOf(component);
-        components.add(index, componentChange);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractDashboard that = (AbstractDashboard) o;
+        return Objects.equals(components, that.components) && Objects.equals(dashboardComponent, that.dashboardComponent);
     }
 
-    class SortedByName implements Comparator<DashboardComponent> {
-        public int compare(DashboardComponent component1, DashboardComponent component2) {
-            String str1 = component1.getName();
-            String str2 = component2.getName();
-            return str1.compareTo(str2);
+    @Override
+    public int hashCode() {
+        return Objects.hash(components, dashboardComponent);
+    }
+
+    @Override
+    public AbstractDashboard clone() {
+        AbstractDashboard clone = null;
+        try {
+            clone = (AbstractDashboard) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException(e);
         }
-
-        @Override
-        public Comparator<DashboardComponent> reversed() {
-            return null;
-        }
+        clone.dashboardComponent = new LabelComponent(0, 0);
+        return clone;
     }
 
-    @Override
-    public void sortComponent() {
-        components.sort(new SortedByName());
-        System.out.println("Сортировка по названию");
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public Object clone() {
-        System.out.println("Создана копия DashDoard");
-        List<DashboardComponent> componentsClone = new ArrayList<>();
-        componentsClone.addAll(components);
-        return componentsClone;
+    public void setName(String name) {
+        this.name = name;
     }
 }
-
