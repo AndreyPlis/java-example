@@ -66,7 +66,10 @@ public abstract class AbstractDashboardComponent implements DashboardComponent {
 
     @Override
     public int compareTo(DashboardComponent o) {
-        return Integer.compare(this.id, o.getId());
+        if (this.y == o.getY())
+            return Integer.compare(this.x, o.getX());
+        return Integer.compare(this.y, o.getY());
+
     }
 
     @Override

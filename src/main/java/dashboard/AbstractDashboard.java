@@ -6,7 +6,7 @@ import java.util.*;
 
 public abstract class AbstractDashboard implements Dashboard {
 
-    private List<DashboardComponent> components = new ArrayList<>();
+    protected List<DashboardComponent> components = new ArrayList<>();
 
 
     @Override
@@ -45,11 +45,6 @@ public abstract class AbstractDashboard implements Dashboard {
     @Override
     public void sort() {
         Collections.sort(components);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 
     @Override
