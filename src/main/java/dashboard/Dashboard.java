@@ -1,6 +1,9 @@
 package dashboard;
 
 import component.*;
+import validator.Validator;
+
+
 
 public interface Dashboard extends Cloneable {
 
@@ -15,5 +18,9 @@ public interface Dashboard extends Cloneable {
     void addComponent(DashboardComponent component);
 
     void removeComponent(DashboardComponent component);
+
+    void validate() throws DashboardValidationException;
+
+    void addValidator(Validator validator);
 
 }
