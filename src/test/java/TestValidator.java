@@ -1,5 +1,6 @@
 import dashboard.*;
 import org.junit.jupiter.api.*;
+import validator.*;
 
 public class TestValidator {
 
@@ -8,9 +9,8 @@ public class TestValidator {
     public void validatorShouldThrowExceptionIfDashboardDoesNotHaveElements() {
         Assertions.assertThrows(DashboardValidationException.class, () -> {
             Dashboard dashboard = new DashboardBuilder().name("test")
-                    //.addValidator()  validate elements count
+                    .addValidator(new ValidatorElementsCount())  //validate elements count
                     .build();
-
             dashboard.validate();
         });
     }
@@ -19,7 +19,7 @@ public class TestValidator {
     public void validatorShouldThrowExceptionIfDashboardDoesNotHaveName() {
         Assertions.assertThrows(DashboardValidationException.class, () -> {
             Dashboard dashboard = new DashboardBuilder()
-                    //.addValidator()  validate dashboard name
+                    .addValidator(new ValidatorDashboardName())  //validate dashboard name
                     .build();
             dashboard.validate();
         });
@@ -29,8 +29,7 @@ public class TestValidator {
     public void validatorShouldThrowExceptionIfDashboardHasElementsWithCoordsBelowZero() {
         Assertions.assertThrows(DashboardValidationException.class, () -> {
             Dashboard dashboard = new DashboardBuilder().addImage(-1, -1, 1, 1)
-                    //.addValidator()  intersect components
-                    //.addValidator()  coords below zero
+                    .addValidator(new ValidatorCoordsBelowZero())   //coords below zero
                     .build();
             dashboard.validate();
         });
@@ -40,7 +39,27 @@ public class TestValidator {
     public void validatorShouldThrowExceptionIfDashboardHasElementsWhichIntersect() {
         Assertions.assertThrows(DashboardValidationException.class, () -> {
             Dashboard dashboard = new DashboardBuilder().addImage(1, 1, 5, 5).addLabel(3, 3, 6, 6)
-                    //.addValidator()  intersect components
+                    .addValidator(new ValidatorIntersectComponents())  //intersect components
+                    .build();
+            dashboard.validate();
+        });
+    }
+
+    @Test
+    public void validatorShouldThrowExceptionIfDashboardNameLength() {
+        Assertions.assertThrows(DashboardValidationException.class, () -> {
+            Dashboard dashboard = new DashboardBuilder().name("ab")
+                    .addValidator(new ValidatorDashboardNameLength())   // validate name length ()
+                    .build();
+            dashboard.validate();
+        });
+    }
+
+    @Test
+    public void validatorShouldThrowExceptionIfDashboardElementsSqurea() {
+        Assertions.assertThrows(DashboardValidationException.class, () -> {
+            Dashboard dashboard = new DashboardBuilder().addImage(1, 1, 44, 33)
+                    .addValidator(new ValidatorElementsSqurea())   // validate elements squrea
                     .build();
             dashboard.validate();
         });
@@ -50,10 +69,10 @@ public class TestValidator {
     public void validatorShouldPassWithoutExceptions() {
         Assertions.assertDoesNotThrow(() -> {
             Dashboard dashboard = new DashboardBuilder().name("test").addImage(1, 1, 2, 2).addLabel(10, 10, 6, 6)
-                    //.addValidator()  validate elements count
-                    //.addValidator()  validate dashboard name
-                    //.addValidator()  intersect components
-                    //.addValidator()  coords below zero
+                    .addValidator(new ValidatorElementsCount()) // validate elements count
+                    .addValidator(new ValidatorDashboardName()) // validate dashboard name
+                    .addValidator(new ValidatorIntersectComponents()) // intersect components
+                    .addValidator(new ValidatorCoordsBelowZero()) // coords below zero
                     .build();
             dashboard.validate();
         });

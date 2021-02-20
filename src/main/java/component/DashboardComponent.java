@@ -6,10 +6,31 @@ public abstract class DashboardComponent {
 
     private int x;
     private int y;
+    private int width;
+    private int height;
 
-    public DashboardComponent(int x, int y) {
+
+    public DashboardComponent(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getX() {
@@ -30,18 +51,16 @@ public abstract class DashboardComponent {
 
     public abstract String render();
 
-
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DashboardComponent that = (DashboardComponent) o;
-        return x == that.x && y == that.y;
+        return x == that.x && y == that.y && width == that.width && height == that.height;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(x, y, width, height);
     }
 }

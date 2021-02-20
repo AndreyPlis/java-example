@@ -1,5 +1,7 @@
 import component.*;
 import dashboard.*;
+import validator.ValidatorDashboardName;
+import validator.ValidatorElementsCount;
 
 import java.util.*;
 
@@ -23,9 +25,9 @@ public class Main {
         List<DashboardComponent> components = new ArrayList<>();
 
 
-        DashboardComponent component1 = new LabelComponent(1,1);
-        DashboardComponent component2 = new LabelComponent(2,2);
-        DashboardComponent component3 = new LabelComponent(1,1);
+        DashboardComponent component1 = new LabelComponent(1, 1, 3, 4);
+        DashboardComponent component2 = new LabelComponent(2, 2, 5, 6);
+        DashboardComponent component3 = new LabelComponent(1, 1, 7, 8);
 
 
         components.add(component1);
@@ -35,8 +37,18 @@ public class Main {
 
         DashboardBuilder builder = new DashboardBuilder();
 
-        Dashboard result = builder.name("dash").editable().build();
+        //   Dashboard result = builder.name("dash").editable().build();
 
+        //      Dashboard testtest = builder.name("").editable().build();
+        Dashboard testtest = builder.editable().addImage(1, 2, 3, 4).build();
+        testtest.addValidator(new ValidatorDashboardName());
+        testtest.addValidator(new ValidatorElementsCount());
+
+        try {
+            testtest.validate();
+        } catch (DashboardValidationException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(components.indexOf(component3));
 

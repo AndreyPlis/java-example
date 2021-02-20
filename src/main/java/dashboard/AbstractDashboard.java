@@ -11,11 +11,12 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     private List<DashboardComponent> components = new ArrayList<>();
 
+    private List<Validator> validators = new ArrayList<>();
 
     private String name;
 
 
-    private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
+    private DashboardComponent dashboardComponent = new LabelComponent(1, 1, 2, 3);
 
 
     @Override
@@ -31,12 +32,17 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     @Override
     public void validate() throws DashboardValidationException {
-//some code
+
+        for (Validator validator : validators) {
+            if (!validator.check(this, this.components).equals("ok")) {
+                throw new DashboardValidationException(validator.check(this, this.components));
+            }
+        }
     }
 
     @Override
     public void addValidator(Validator validator) {
-//some code
+        validators.add(validator);
     }
 
     protected abstract void render();
@@ -84,7 +90,7 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
         } catch (CloneNotSupportedException e) {
             throw new IllegalStateException(e);
         }
-        clone.dashboardComponent = new LabelComponent(0, 0);
+        clone.dashboardComponent = new LabelComponent(0, 0, 1, 2);
         return clone;
     }
 

@@ -1,7 +1,12 @@
 package validator;
 
-//@FunctionalInterface
+import dashboard.Dashboard;
+import component.*;
+
+import java.util.List;
+
+@FunctionalInterface
 public interface Validator {
 
- //write code
+    String check(Dashboard dashboard, List<DashboardComponent> components);
 }

@@ -4,7 +4,6 @@ import component.*;
 import validator.Validator;
 
 
-
 public interface Dashboard extends Cloneable {
 
     void redirect(String dashboardUrl);
@@ -23,4 +22,5 @@ public interface Dashboard extends Cloneable {
 
     void addValidator(Validator validator);
 
+    String getName();
 }
