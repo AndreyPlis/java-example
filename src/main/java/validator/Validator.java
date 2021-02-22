@@ -1,7 +1,12 @@
 package validator;
 
+import dashboard.AbstractDashboard;
+
 //@FunctionalInterface
 public interface Validator {
 
- //write code
+    public void setDashboard(AbstractDashboard dashboard);
+
+    public Boolean validate();
+
 }

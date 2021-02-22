@@ -9,14 +9,17 @@ import java.util.*;
 
 public abstract class AbstractDashboard extends Object implements Dashboard, Cloneable {
 
-    private List<DashboardComponent> components = new ArrayList<>();
-
-
     private String name;
-
-
+    private List<DashboardComponent> components = new ArrayList<>();
     private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public void redirect(String dashboardUrl) {
@@ -26,17 +29,6 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
     @Override
     public void search(String search) {
 
-    }
-
-
-    @Override
-    public void validate() throws DashboardValidationException {
-//some code
-    }
-
-    @Override
-    public void addValidator(Validator validator) {
-//some code
     }
 
     protected abstract void render();
@@ -61,7 +53,6 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
     public void removeComponent(DashboardComponent component) {
         components.remove(component);
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -88,11 +79,23 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
         return clone;
     }
 
-    public String getName() {
-        return name;
+    public Boolean isComponentListEmpty() {
+        return this.components.isEmpty();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Boolean isAnyComponentCoordsBelowZero() {
+        for (DashboardComponent component : components) {
+            if (component.isCoodsBelowZero())
+                return true;
+        }
+        return false;
+    }
+
+    public Boolean isComponentsIntersect() {
+        for (int i = 0; i < this.components.size(); i++)
+            for (int j = 0; j < this.components.size(); j++)
+                if (i != j && this.components.get(i).hasIntersects(this.components.get(j).getX(), this.components.get(j).getY()))
+                    return true;
+        return false;
     }
 }

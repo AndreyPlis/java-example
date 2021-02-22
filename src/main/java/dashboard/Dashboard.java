@@ -3,9 +3,13 @@ package dashboard;
 import component.*;
 import validator.Validator;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public interface Dashboard extends Cloneable {
+
+    List<Validator> validators = new ArrayList<>();
 
     void redirect(String dashboardUrl);
 
@@ -19,8 +23,18 @@ public interface Dashboard extends Cloneable {
 
     void removeComponent(DashboardComponent component);
 
-    void validate() throws DashboardValidationException;
+    default void validate() throws DashboardValidationException {
+        for (Validator validator : validators) {
+            if (!validator.validate())
+                throw new DashboardValidationException("");
+        }
+    }
 
-    void addValidator(Validator validator);
+    default void addValidator(Validator validator) {
+        validator.setDashboard((AbstractDashboard) this);
+        validators.add(validator);
+
+    }
 
 }
+

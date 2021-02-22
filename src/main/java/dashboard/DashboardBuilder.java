@@ -32,7 +32,7 @@ public class DashboardBuilder {
         return this;
     }
 
-    public DashboardBuilder addLabel(int x, int y,int width, int height) {
+    public DashboardBuilder addLabel(int x, int y, int width, int height) {
         components.add(ComponentsFactory.create(ComponentsFactory.Type.LABEL, x, y));
         return this;
     }
@@ -59,9 +59,11 @@ public class DashboardBuilder {
         for (DashboardComponent component : components)
             dash.addComponent(component);
 
-        for (Validator validator : validators)
+        for (Validator validator : validators) {
             dash.addValidator(validator);
-
+            validator.setDashboard(dash);
+        }
+        
         return dash;
     }
 

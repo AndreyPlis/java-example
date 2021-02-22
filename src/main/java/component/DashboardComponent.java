@@ -30,6 +30,10 @@ public abstract class DashboardComponent {
 
     public abstract String render();
 
+    public Boolean isCoodsBelowZero() {
+        return this.x < 0 || this.y < 0;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -43,5 +47,13 @@ public abstract class DashboardComponent {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    public Boolean hasIntersects(int x, int y) {
+        if (x >= this.x && x <= this.y)
+            return true;
+        if (y >= this.x && y <= this.y)
+            return true;
+        return false;
     }
 }
