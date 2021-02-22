@@ -3,5 +3,5 @@ package validator;
 //@FunctionalInterface
 public interface Validator {
 
- //write code
+    void validate() throws DashboardValidationException;
 }

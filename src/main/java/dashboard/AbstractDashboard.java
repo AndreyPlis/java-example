@@ -17,6 +17,8 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
 
+    private List<Validator> validators = new ArrayList<>();
+
 
     @Override
     public void redirect(String dashboardUrl) {
@@ -31,12 +33,32 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     @Override
     public void validate() throws DashboardValidationException {
-//some code
+        validators.forEach(validator -> {
+            if(validator instanceof CoordsBelowZeroValidator)
+                ((CoordsBelowZeroValidator) validator).setComponents(components);
+            else if (validator instanceof DashboardNameValidator)
+                ((DashboardNameValidator) validator).setName(name);
+            else if(validator instanceof ElementsCountValidator)
+                ((ElementsCountValidator)validator).setComponents(components);
+            else if(validator instanceof IntersectComponentsValidator)
+                ((IntersectComponentsValidator) validator).setComponents(components);
+            else
+                try {
+                    throw new DashboardValidationException("Unknown validator");
+                } catch (DashboardValidationException e) {
+                    e.printStackTrace();
+                }
+            try {
+                validator.validate();
+            } catch (DashboardValidationException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void addValidator(Validator validator) {
-//some code
+        validators.add(validator);
     }
 
     protected abstract void render();

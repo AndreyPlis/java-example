@@ -1,8 +1,8 @@
 package dashboard;
 
 import component.*;
+import validator.DashboardValidationException;
 import validator.Validator;
-
 
 
 public interface Dashboard extends Cloneable {
