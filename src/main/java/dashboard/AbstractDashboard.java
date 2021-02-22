@@ -48,12 +48,10 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
                 } catch (DashboardValidationException e) {
                     e.printStackTrace();
                 }
-            try {
-                validator.validate();
-            } catch (DashboardValidationException e) {
-                e.printStackTrace();
-            }
         });
+        for (Validator validator : validators) {
+            validator.validate();
+        }
     }
 
     @Override
