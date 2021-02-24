@@ -1,7 +1,10 @@
 package validator;
 
-//@FunctionalInterface
-public interface Validator {
+import dashboard.AbstractDashboard;
+import validator.exception.DashboardValidationException;
 
- //write code
+@FunctionalInterface
+public interface Validator {
+    void validate(AbstractDashboard dashboard) throws DashboardValidationException;
+
 }

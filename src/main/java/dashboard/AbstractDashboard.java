@@ -2,20 +2,16 @@ package dashboard;
 
 import component.*;
 import validator.*;
-import validator.Validator;
+import validator.exception.DashboardValidationException;
 
-import javax.xml.bind.*;
 import java.util.*;
 
-public abstract class AbstractDashboard extends Object implements Dashboard, Cloneable {
+public abstract class AbstractDashboard implements Dashboard, Cloneable {
 
     private List<DashboardComponent> components = new ArrayList<>();
-
-
     private String name;
-
-
-    private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
+    private DashboardComponent dashboardComponent = new LabelComponent(1, 1, 1, 1);
+    private List<Validator> validators = new ArrayList<>();
 
 
     @Override
@@ -28,15 +24,16 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     }
 
-
     @Override
     public void validate() throws DashboardValidationException {
-//some code
+        for (Validator x : validators) {
+            x.validate(this);
+        }
     }
 
     @Override
     public void addValidator(Validator validator) {
-//some code
+        validators.add(validator);
     }
 
     protected abstract void render();
@@ -49,7 +46,7 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     @Override
     public void stop() {
-
+        System.out.println("stop");
     }
 
     @Override
@@ -84,7 +81,7 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
         } catch (CloneNotSupportedException e) {
             throw new IllegalStateException(e);
         }
-        clone.dashboardComponent = new LabelComponent(0, 0);
+        clone.dashboardComponent = new LabelComponent(1, 1, 1, 1);
         return clone;
     }
 
@@ -94,5 +91,11 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<DashboardComponent> getListComponents() {
+        List<DashboardComponent> componentsGetOut = new ArrayList<>();
+        componentsGetOut.addAll(components);
+        return componentsGetOut;
     }
 }

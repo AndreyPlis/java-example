@@ -1,44 +1,39 @@
 import component.*;
 import dashboard.*;
-
-import java.util.*;
+import validator.*;
+import validator.exception.DashboardValidationException;
 
 public class Main {
 
     public static void main(String... args) {
 
-        Dashboard dash = new RunnableDashboard();
-
-        AbstractDashboard dash2 = new EditableDashboard();
-
-        dash2.clone();
-
-        dash.start();
-
-        dash2.start();
-
-        dash2.stop();
-
-
-        List<DashboardComponent> components = new ArrayList<>();
-
-
-        DashboardComponent component1 = new LabelComponent(1,1);
-        DashboardComponent component2 = new LabelComponent(2,2);
-        DashboardComponent component3 = new LabelComponent(1,1);
-
-
-        components.add(component1);
-        components.add(component2);
-        //components.add(component3);
-
-
         DashboardBuilder builder = new DashboardBuilder();
 
         Dashboard result = builder.name("dash").editable().build();
 
+        DashboardComponent component1 = new LabelComponent(4, 4, 2, 2);
+        DashboardComponent component2 = new LabelComponent(5, 5, 2, 2);
+        DashboardComponent component3 = new LabelComponent(10, 10, 1, 1);
 
-        System.out.println(components.indexOf(component3));
+        result.addComponent(component1);
+        result.addComponent(component2);
+        result.addComponent(component3);
 
+        Validator validator = new DashBoardCheckNameNotNullValidator();
+        Validator validator1 = new DashboardHasElementsWhichIntersectValidator();
+        Validator validator2 = new DashboardDoesNotHaveElementsValidator();
+        Validator validator3 = new DashboardHasElementsWithCoordsBelowZeroValidator();
+
+        result.addValidator(validator);
+        result.addValidator(validator1);
+        result.addValidator(validator2);
+        result.addValidator(validator3);
+
+        try {
+            result.validate();
+        } catch (DashboardValidationException e) {
+            e.printStackTrace();
+        }
     }
 }
+

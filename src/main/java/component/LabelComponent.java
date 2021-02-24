@@ -2,12 +2,12 @@ package component;
 
 import java.util.*;
 
-public class LabelComponent extends DashboardComponent implements Cloneable{
+public class LabelComponent extends DashboardComponent implements Cloneable {
 
     String name = null;
 
-    public LabelComponent(int x, int y) {
-        super(x, y);
+    public LabelComponent(int x, int y, int width, int height) {
+        super(x, y, width, height);
     }
 
     @Override

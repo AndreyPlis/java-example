@@ -1,6 +1,7 @@
 package dashboard;
 
 import component.*;
+import validator.exception.DashboardValidationException;
 import validator.Validator;
 
 

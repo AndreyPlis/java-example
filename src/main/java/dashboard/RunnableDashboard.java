@@ -4,12 +4,10 @@ public class RunnableDashboard extends AbstractDashboard {
 
     private boolean isRun = true;
 
-
     @Override
     protected void render() {
         System.out.println("render runnable");
     }
-
 
     @Override
     public RunnableDashboard clone() {
