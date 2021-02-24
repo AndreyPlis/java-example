@@ -20,7 +20,7 @@ public class IntersectComponentsValidator implements Validator {
                 boolean flagY = intersect(components.get(i).getY(), components.get(j).getY(), components.get(i).getHeight(), components.get(j).getHeight());
 
                 if (flagX && flagY)
-                    throw new DashboardValidationException();
+                    throw new DashboardValidationException("Components intersect");
             }
     }
 

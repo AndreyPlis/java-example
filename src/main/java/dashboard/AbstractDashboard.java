@@ -7,7 +7,7 @@ import validator.Validator;
 import javax.xml.bind.*;
 import java.util.*;
 
-public abstract class AbstractDashboard extends Object implements Dashboard, Cloneable {
+public abstract class AbstractDashboard implements Dashboard, Cloneable {
 
     private List<DashboardComponent> components = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
     private String name;
 
 
-    private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
+    private DashboardComponent dashboardComponent = new LabelComponent(1, 1, 1, 1);
 
     private List<Validator> validators = new ArrayList<>();
 
@@ -104,7 +104,7 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
         } catch (CloneNotSupportedException e) {
             throw new IllegalStateException(e);
         }
-        clone.dashboardComponent = new LabelComponent(0, 0);
+        clone.dashboardComponent = new LabelComponent(0, 0, 0, 0);
         return clone;
     }
 

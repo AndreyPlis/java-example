@@ -9,11 +9,6 @@ public abstract class DashboardComponent {
     private int width;
     private int height;
 
-    public DashboardComponent(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
     public DashboardComponent(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -62,11 +57,11 @@ public abstract class DashboardComponent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DashboardComponent that = (DashboardComponent) o;
-        return x == that.x && y == that.y;
+        return x == that.x && y == that.y && width == that.width && height == that.height;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(x, y, width, height);
     }
 }

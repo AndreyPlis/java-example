@@ -15,6 +15,6 @@ public class ElementsCountValidator implements Validator {
     @Override
     public void validate() throws DashboardValidationException {
         if (components == null || components.isEmpty())
-            throw new DashboardValidationException();
+            throw new DashboardValidationException("Elements is empty");
     }
 }

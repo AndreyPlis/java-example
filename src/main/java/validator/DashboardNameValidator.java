@@ -11,6 +11,6 @@ public class DashboardNameValidator implements Validator {
     @Override
     public void validate() throws DashboardValidationException {
         if (name == null || name.equals(""))
-            throw new DashboardValidationException("Name is enpty");
+            throw new DashboardValidationException("Name is empty");
     }
 }
