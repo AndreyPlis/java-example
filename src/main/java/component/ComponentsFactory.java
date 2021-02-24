@@ -8,12 +8,12 @@ public class ComponentsFactory {
         LABEL, IMAGE
     }
 
-    public static DashboardComponent create(ComponentsFactory.Type type, int x, int y) {
+    public static DashboardComponent create(ComponentsFactory.Type type, int x, int y, int width, int height) {
         switch (type) {
             case IMAGE:
-                return new ImageComponent(x, y);
+                return new ImageComponent(x, y, width, height);
             case LABEL:
-                return new LabelComponent(x, y);
+                return new LabelComponent(x, y, width, height);
             default:
                 throw new IllegalStateException("unknown type ");
         }

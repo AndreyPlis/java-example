@@ -10,6 +10,10 @@ public class LabelComponent extends DashboardComponent implements Cloneable{
         super(x, y);
     }
 
+    public LabelComponent(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
+
     @Override
     public String render() {
         return "label";
