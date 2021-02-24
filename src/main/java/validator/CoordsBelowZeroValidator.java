@@ -3,7 +3,6 @@ package validator;
 import component.DashboardComponent;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CoordsBelowZeroValidator implements Validator {
 
@@ -15,13 +14,9 @@ public class CoordsBelowZeroValidator implements Validator {
 
     @Override
     public void validate() throws DashboardValidationException {
-        AtomicBoolean flag = new AtomicBoolean(false);
-        components.forEach(dashboardComponent -> {
-            if (dashboardComponent.getX() < 0 || dashboardComponent.getY() < 0)
-                flag.set(true);
-            //throw new DashboardValidationException(); почему я так не могу сделать?
-        });
-        if (flag.get())
-            throw new DashboardValidationException("Coords below zero");
+        for (DashboardComponent component : components) {
+            if (component.getX() < 0 || component.getY() < 0)
+                throw new DashboardValidationException("Coords below zero");
+        }
     }
 }

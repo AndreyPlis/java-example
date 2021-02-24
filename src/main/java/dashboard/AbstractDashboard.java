@@ -33,7 +33,7 @@ public abstract class AbstractDashboard implements Dashboard, Cloneable {
 
     @Override
     public void validate() throws DashboardValidationException {
-        validators.forEach(validator -> {
+        for (Validator validator : validators) {
             if (validator instanceof CoordsBelowZeroValidator)
                 ((CoordsBelowZeroValidator) validator).setComponents(components);
             else if (validator instanceof DashboardNameValidator)
@@ -43,13 +43,8 @@ public abstract class AbstractDashboard implements Dashboard, Cloneable {
             else if (validator instanceof IntersectComponentsValidator)
                 ((IntersectComponentsValidator) validator).setComponents(components);
             else
-                try {
-                    throw new DashboardValidationException("Unknown validator");
-                } catch (DashboardValidationException e) {
-                    e.printStackTrace();
-                }
-        });
-        for (Validator validator : validators) {
+                throw new DashboardValidationException("Unknown validator");
+
             validator.validate();
         }
     }
