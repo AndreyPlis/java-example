@@ -2,7 +2,7 @@ package component;
 
 import java.util.*;
 
-public class LabelComponent extends DashboardComponent implements Cloneable{
+public class LabelComponent extends DashboardComponent implements Cloneable {
 
     String name = null;
 

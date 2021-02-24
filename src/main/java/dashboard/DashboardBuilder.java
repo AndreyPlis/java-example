@@ -32,13 +32,13 @@ public class DashboardBuilder {
         return this;
     }
 
-    public DashboardBuilder addLabel(int x, int y,int width, int height) {
-        components.add(ComponentsFactory.create(ComponentsFactory.Type.LABEL, x, y,width,height));
+    public DashboardBuilder addLabel(int x, int y, int width, int height) {
+        components.add(ComponentsFactory.create(ComponentsFactory.Type.LABEL, x, y, width, height));
         return this;
     }
 
     public DashboardBuilder addImage(int x, int y, int width, int height) {
-        components.add(ComponentsFactory.create(ComponentsFactory.Type.IMAGE, x, y,width,height));
+        components.add(ComponentsFactory.create(ComponentsFactory.Type.IMAGE, x, y, width, height));
         return this;
     }
 

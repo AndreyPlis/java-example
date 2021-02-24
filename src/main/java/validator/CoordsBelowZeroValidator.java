@@ -19,9 +19,9 @@ public class CoordsBelowZeroValidator implements Validator {
         components.forEach(dashboardComponent -> {
             if (dashboardComponent.getX() < 0 || dashboardComponent.getY() < 0)
                 flag.set(true);
-                //throw new DashboardValidationException(); почему я так не могу сделать?
+            //throw new DashboardValidationException(); почему я так не могу сделать?
         });
-        if(flag.get())
+        if (flag.get())
             throw new DashboardValidationException("Coords below zero");
     }
 }

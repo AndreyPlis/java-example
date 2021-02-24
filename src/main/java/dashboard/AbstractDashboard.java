@@ -34,13 +34,13 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
     @Override
     public void validate() throws DashboardValidationException {
         validators.forEach(validator -> {
-            if(validator instanceof CoordsBelowZeroValidator)
+            if (validator instanceof CoordsBelowZeroValidator)
                 ((CoordsBelowZeroValidator) validator).setComponents(components);
             else if (validator instanceof DashboardNameValidator)
                 ((DashboardNameValidator) validator).setName(name);
-            else if(validator instanceof ElementsCountValidator)
-                ((ElementsCountValidator)validator).setComponents(components);
-            else if(validator instanceof IntersectComponentsValidator)
+            else if (validator instanceof ElementsCountValidator)
+                ((ElementsCountValidator) validator).setComponents(components);
+            else if (validator instanceof IntersectComponentsValidator)
                 ((IntersectComponentsValidator) validator).setComponents(components);
             else
                 try {

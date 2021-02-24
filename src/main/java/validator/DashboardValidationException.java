@@ -1,6 +1,6 @@
 package validator;
 
-public class DashboardValidationException extends Exception{
+public class DashboardValidationException extends Exception {
     public DashboardValidationException() {
     }
 
