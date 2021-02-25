@@ -3,6 +3,7 @@ package dashboard;
 import component.*;
 import validator.*;
 
+import java.io.*;
 import java.util.*;
 
 public class DashboardBuilder {
@@ -32,7 +33,7 @@ public class DashboardBuilder {
         return this;
     }
 
-    public DashboardBuilder addLabel(int x, int y,int width, int height) {
+    public DashboardBuilder addLabel(int x, int y, int width, int height) {
         components.add(ComponentsFactory.create(ComponentsFactory.Type.LABEL, x, y));
         return this;
     }

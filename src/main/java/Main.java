@@ -1,6 +1,8 @@
 import component.*;
 import dashboard.*;
+import validator.*;
 
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -15,7 +17,14 @@ public class Main {
 
         dash.start();
 
-        dash2.start();
+        dash2.addValidator(new Validator() {
+            @Override
+            public void validate(AbstractDashboard abstractDashboard) throws DashboardValidationException {
+                throw new IllegalStateException("npe");
+            }
+        });
+
+
 
         dash2.stop();
 
@@ -35,10 +44,23 @@ public class Main {
 
         DashboardBuilder builder = new DashboardBuilder();
 
+
         Dashboard result = builder.name("dash").editable().build();
 
 
-        System.out.println(components.indexOf(component3));
 
+       // System.out.println(components.indexOf(component3));
+
+
+
+        ArrayList<Dashboard> dashboards = new ArrayList<>();
+
+        Set<String> dashboardMap = new HashSet<>();
+
+        dashboardMap.add("1");
+        dashboardMap.add("1");
+
+
+        System.out.println(dashboardMap);
     }
 }
