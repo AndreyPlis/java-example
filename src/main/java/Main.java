@@ -1,3 +1,4 @@
+import collection.MultiMapImpl;
 import component.*;
 import dashboard.*;
 import validator.*;
@@ -29,7 +30,8 @@ public class Main {
         dash2.stop();
 
 
-        List<DashboardComponent> components = new ArrayList<>();
+        //List<DashboardComponent> components = new ArrayList<>();
+        MultiMapImpl<DashboardComponent> components = new MultiMapImpl<DashboardComponent>();
 
 
         DashboardComponent component1 = new LabelComponent(1,1);
@@ -37,8 +39,8 @@ public class Main {
         DashboardComponent component3 = new LabelComponent(1,1);
 
 
-        components.add(component1);
-        components.add(component2);
+        components.put(1, component1);
+        components.put(2, component2);
         //components.add(component3);
 
 
