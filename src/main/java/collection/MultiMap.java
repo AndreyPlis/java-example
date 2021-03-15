@@ -2,7 +2,7 @@ package collection;
 
 import java.util.*;
 
-public interface MultiMap {
+public interface MultiMap<K, V> {
 
     int size();
 
@@ -12,22 +12,22 @@ public interface MultiMap {
 
     boolean containsValue(Object value);
 
-    Object get(Object key);
+    V get(Object key);
 
-    Object put(Object key, Object value);
+    V put(K key, V value);
 
-    Object remove(Object key);
+    V remove(Object key);
 
-    void putAll(MultiMap m);
+    void putAll(MultiMap<K, V> m);
 
     void clear();
 
-    Set keySet();
+    Set<K> keySet();
 
-    Collection values();
+    Collection<V> values();
 
-    boolean replace(Object key, Object oldValue, Object newValue);
+    boolean replace(K key, V oldValue, V newValue);
 
-    Object replace(Object key, Object value);
+    V replace(K key, V value);
 
 }
