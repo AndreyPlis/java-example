@@ -2,11 +2,12 @@ package collection;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
-public class MultiMapImpl<T> implements MultiMap<T> {
+public class MultiMapImpl<K, T> implements MultiMap<K, T> {
 
-    private HashMap<Object, T> table = new HashMap<Object, T>();
+    private HashMap<K, Set<T>> table = new HashMap<K, Set<T>>();
 
     @Override
     public int size() {
@@ -19,34 +20,59 @@ public class MultiMapImpl<T> implements MultiMap<T> {
     }
 
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(K key) {
         return table.containsKey(key);
     }
 
     @Override
     public boolean containsValue(T value) {
-        return table.containsValue(value);
+        for (Set<T> e : this.values())
+            if (e.contains(value))
+                return true;
+        return false;
     }
 
     @Override
-    public T get(Object key) {
+    public Set<T> get(K key) {
         return table.get(key);
     }
 
+    /*
+    Returns the previous value associated with key, or null if there was no mapping for key.
+     */
     @Override
-    public T put(Object key, T value) {
+    public Set<T> put(K key, Set<T> value) {
         return table.put(key, value);
     }
 
     @Override
-    public T remove(Object key) {
+    public void put(K key, T value) {
+        if (table.containsKey(key)) {
+            table.get(key).add(value);
+        } else {
+            Set<T> t = new HashSet<T>();
+            t.add(value);
+            table.put(key, t);
+        }
+    }
+
+    /*
+    Returns the previous value associated with key, or null if there was no mapping for key.
+     */
+    @Override
+    public Set<T> remove(K key) {
         return table.remove(key);
     }
 
     @Override
-    public void putAll(MultiMap<T> m) {
+    public void remove(K key, T value) {
+        table.get(key).remove(value);
+    }
+
+    @Override
+    public void putAll(MultiMap<K, T> m) {
         for (Object e : m.keySet()) {
-            table.put(e, m.get(e));
+            table.put((K) e, m.get((K) e));
         }
     }
 
@@ -61,17 +87,35 @@ public class MultiMapImpl<T> implements MultiMap<T> {
     }
 
     @Override
-    public Collection<T> values() {
+    public Collection<Set<T>> values() {
         return table.values();
     }
 
     @Override
-    public boolean replace(Object key, T oldValue, T newValue) {
-        return table.replace(key, oldValue, newValue);
+    public boolean replace(K key, T oldValue, T newValue) {
+        if (table.get(key).contains(oldValue)) {
+            table.get(key).remove(oldValue);
+            table.get(key).add(newValue);
+            return true;
+        }
+
+        return false;
     }
 
+    /*
+    Replaces the entry for the specified key only if it is currently mapped to some value.
+    Returns the previous value associated with the specified key, or null if there was no mapping for the key.
+     */
     @Override
-    public T replace(Object key, T value) {
+    public Set<T> replace(K key, Set<T> value) {
         return table.replace(key, value);
+    }
+
+    public void print() {
+        for (Object e : table.keySet()) {
+            System.out.println(e);
+            System.out.println(table.get(e));
+            System.out.println();
+        }
     }
 }

@@ -2,32 +2,35 @@ package collection;
 
 import java.util.*;
 
-public interface MultiMap<T> {
+public interface MultiMap<K, T> {
 
     int size();
 
     boolean isEmpty();
 
-    boolean containsKey(Object key);
+    boolean containsKey(K key);
 
     boolean containsValue(T value);
 
-    T get(Object key);
+    Set<T> get(K key);
 
-    T put(Object key, T value);
+    Set<T> put(K key, Set<T> value);
 
-    T remove(Object key);
+    void put(K key, T value);
 
-    void putAll(MultiMap<T> m);
+    Set<T> remove(K key);
+
+    void remove(K key, T value);
+
+    void putAll(MultiMap<K, T> m);
 
     void clear();
 
     Set keySet();
 
-    Collection<T> values();
+    Collection<Set<T>> values();
 
-    boolean replace(Object key, T oldValue, T newValue);
+    boolean replace(K key, T oldValue, T newValue);
 
-    T replace(Object key, T value);
-
+    Set<T> replace(K key, Set<T> value);
 }

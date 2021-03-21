@@ -11,58 +11,42 @@ public class Main {
     public static void main(String... args) {
 
         Dashboard dash = new RunnableDashboard();
-
         AbstractDashboard dash2 = new EditableDashboard();
 
-        dash2.clone();
+        MultiMapImpl<Integer, DashboardComponent> components = new MultiMapImpl<Integer, DashboardComponent>();
 
-        dash.start();
-
-        dash2.addValidator(new Validator() {
-            @Override
-            public void validate(AbstractDashboard abstractDashboard) throws DashboardValidationException {
-                throw new IllegalStateException("npe");
-            }
-        });
-
-
-
-        dash2.stop();
-
-
-        //List<DashboardComponent> components = new ArrayList<>();
-        MultiMapImpl<DashboardComponent> components = new MultiMapImpl<DashboardComponent>();
-
-
-        DashboardComponent component1 = new LabelComponent(1,1);
-        DashboardComponent component2 = new LabelComponent(2,2);
-        DashboardComponent component3 = new LabelComponent(1,1);
-
+        DashboardComponent component1 = new LabelComponent(1, 1);
+        DashboardComponent component2 = new LabelComponent(2, 2);
+        DashboardComponent component3 = new LabelComponent(1, 1);
+        DashboardComponent component4 = new LabelComponent(4, 5);
 
         components.put(1, component1);
-        components.put(2, component2);
-        //components.add(component3);
+        components.put(1, component2);
+        components.put(2, component3);
+        components.put(3, component2);
 
+        components.print();
+        System.out.println("size = " + components.size());
+        System.out.println("isEmpty = " + components.isEmpty());
+        System.out.println("containsKey 1 = " + components.containsKey(1));
+        System.out.println("containsValue (1,1) = " + components.containsValue(component1));
+        System.out.println("get values for key = 1: " + components.get(1).toString());
 
-        DashboardBuilder builder = new DashboardBuilder();
+        components.put(2, component4);
+        components.print();
 
+        Set<DashboardComponent> testSet = new HashSet<DashboardComponent>();
+        testSet.add(component2);
+        testSet.add(component3);
+        components.put(2, testSet);
+        components.print();
 
-        Dashboard result = builder.name("dash").editable().build();
+        System.out.println("remove");
+        components.remove(1);
+        components.remove(3);
+        components.print();
 
-
-
-       // System.out.println(components.indexOf(component3));
-
-
-
-        ArrayList<Dashboard> dashboards = new ArrayList<>();
-
-        Set<String> dashboardMap = new HashSet<>();
-
-        dashboardMap.add("1");
-        dashboardMap.add("1");
-
-
-        System.out.println(dashboardMap);
+        components.clear();
+        components.print();
     }
 }
