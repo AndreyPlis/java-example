@@ -6,4 +6,5 @@ public class EditableDashboard extends AbstractDashboard {
         System.out.println("render editable");
     }
 
+
 }

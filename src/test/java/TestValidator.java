@@ -1,5 +1,6 @@
 import dashboard.*;
 import org.junit.jupiter.api.*;
+import validator.*;
 
 public class TestValidator {
 
@@ -8,7 +9,11 @@ public class TestValidator {
     public void validatorShouldThrowExceptionIfDashboardDoesNotHaveElements() {
         Assertions.assertThrows(DashboardValidationException.class, () -> {
             Dashboard dashboard = new DashboardBuilder().name("test")
-                    //.addValidator()  validate elements count
+                    .addValidator(abstractDashboard -> {
+                        if (abstractDashboard.getName() == null || abstractDashboard.getName().isEmpty()) {
+                            throw new DashboardValidationException("name is empty");
+                        }
+                    })
                     .build();
 
             dashboard.validate();

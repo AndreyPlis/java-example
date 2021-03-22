@@ -5,6 +5,7 @@ import validator.*;
 import validator.Validator;
 
 import javax.xml.bind.*;
+import java.io.*;
 import java.util.*;
 
 public abstract class AbstractDashboard extends Object implements Dashboard, Cloneable {
@@ -13,6 +14,8 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
 
     private String name;
+
+    private List<Validator> validators = new ArrayList<>();
 
 
     private DashboardComponent dashboardComponent = new LabelComponent(1, 1);
@@ -31,12 +34,13 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     @Override
     public void validate() throws DashboardValidationException {
-//some code
+        for(Validator validator : validators)
+            validator.validate(this);
     }
 
     @Override
     public void addValidator(Validator validator) {
-//some code
+        validators.add(validator);
     }
 
     protected abstract void render();
@@ -94,5 +98,13 @@ public abstract class AbstractDashboard extends Object implements Dashboard, Clo
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AbstractDashboard{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
