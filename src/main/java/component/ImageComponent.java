@@ -1,6 +1,6 @@
 package component;
 
-public class ImageComponent implements DashboardComponent {
+public class ImageComponent extends DashboardComponent {
     private String name;
     private int x, y;
 
