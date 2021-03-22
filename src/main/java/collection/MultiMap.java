@@ -24,7 +24,7 @@ public interface MultiMap<K,V> {
 
     Set<K> keySet();
 
-    Collection values();
+    HashSet<HashSet<V>> values();
 
     void replace(K key, V oldValue, V newValue);
 
