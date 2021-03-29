@@ -1,3 +1,4 @@
+import block.BlockingQueueClass;
 import component.*;
 import dashboard.*;
 import validator.*;
@@ -9,58 +10,62 @@ public class Main {
 
     public static void main(String... args) {
 
-        Dashboard dash = new RunnableDashboard();
 
-        AbstractDashboard dash2 = new EditableDashboard();
+        BlockingQueueClass queue = new BlockingQueueClass(5);
 
-        dash2.clone();
 
-        dash.start();
+        queue.add(new Object());
+        queue.add(new Object());
 
-        dash2.addValidator(new Validator() {
+
+        Runnable task1 = new Runnable() {
             @Override
-            public void validate(AbstractDashboard abstractDashboard) throws DashboardValidationException {
-                throw new IllegalStateException("npe");
+            public void run() {
+
+                try {
+
+                    for(int i=0;i<6;i++) {
+                        queue.put(new Object());
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
-        });
+        };
+
+        Thread thread1 = new Thread(task1);
+
+        thread1.start();
 
 
 
-        dash2.stop();
+        Runnable task2 = new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    queue.take();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
 
-        List<DashboardComponent> components = new ArrayList<>();
+            }
+        };
 
+        Thread thread2 = new Thread(task2);
 
-        DashboardComponent component1 = new LabelComponent(1,1);
-        DashboardComponent component2 = new LabelComponent(2,2);
-        DashboardComponent component3 = new LabelComponent(1,1);
+        thread2.start();
 
-
-        components.add(component1);
-        components.add(component2);
-        //components.add(component3);
-
-
-        DashboardBuilder builder = new DashboardBuilder();
-
-
-        Dashboard result = builder.name("dash").editable().build();
-
-
-
-       // System.out.println(components.indexOf(component3));
+        queue.add(new Object());
 
 
 
-        ArrayList<Dashboard> dashboards = new ArrayList<>();
-
-        Set<String> dashboardMap = new HashSet<>();
-
-        dashboardMap.add("1");
-        dashboardMap.add("1");
 
 
-        System.out.println(dashboardMap);
+
     }
 }
